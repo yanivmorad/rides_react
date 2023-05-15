@@ -12,10 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useEffect, useState } from 'react';
-import AdbIcon from "@mui/icons-material/Adb";
 import { Link, NavLink, Navigate, Outlet, useLocation } from "react-router-dom";
-import logo from "./logo.png"
-import Home from "./Home";
+import logo from "./imeges/logo.png"
 
 export default function Layout(props){
   const currLocation = useLocation()
@@ -41,9 +39,11 @@ export default function Layout(props){
 
 
     return(
-      <Box>
-<AppBar position="static" sx={{ backgroundColor: '#d9d9d9', color: '#611f61', border: '4px solid #611f61' }}>      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+      <Box sx={{ backgroundColor: '#f2f2f2' }}>
+
+<AppBar position="static" sx={{ backgroundColor: '#f2f2f2', color: 'rgb(179, 0, 0)', border: '1px solid rgb(179, 0, 0)',boxShadow:'5px solid rgb(179, 0, 0)' }}>
+  <Container maxWidth="xl">
+  <Toolbar disableGutters>
         
         {/* <img src={logo} alt="Logo" height="50" sx={{ mr: 2, display: { xs: "none", md: "flex"} }} /> */}
 
@@ -59,11 +59,12 @@ export default function Layout(props){
               fontFamily: "cursive",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "#ffdb4d",
+              color: "primary.dark",
               textDecoration: "none"
             }}
           >
-            ride app
+            RidePals
+
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -111,13 +112,13 @@ export default function Layout(props){
               
             </Menu>
           </Box>
-          <img src={logo} alt="Logo" height="50"sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <img src={logo} alt="Logo" height="70"sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
 
           <Typography
             variant="h4"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -125,11 +126,11 @@ export default function Layout(props){
               fontFamily: "cursive",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "#ffdb4d",
+              color: "primary.dark",
               textDecoration: "none"
             }}
           >
-            ride app
+RidePals
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Button
@@ -160,6 +161,7 @@ export default function Layout(props){
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar src={props.user.picture_url} />
+                {/* <Avatar src="./Users/yc/OneDrive/שולחן העבודה/s.jpg" /> */}
 
               </IconButton>
             </Tooltip>
@@ -179,16 +181,23 @@ export default function Layout(props){
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-
+  <NavLink to="/profile"style={{ textDecoration: 'none'}}>
 <MenuItem onClick={()=>setAnchorElUser(null)}>
-  <NavLink to="/profile">
     <Typography textAlign="center">Profile</Typography>
-  </NavLink>
 </MenuItem>
+</NavLink>
+
 
 <MenuItem onClick={()=>setAnchorElUser(null)} >
   <Typography textAlign="center">Account</Typography>
 </MenuItem>
+
+<NavLink to="/friends"style={{ textDecoration: 'none'}}>
+<MenuItem onClick={()=>setAnchorElUser(null)} >
+  <Typography textAlign="center">חברים</Typography>
+</MenuItem>
+</NavLink>
+
 <MenuItem onClick={()=>{localStorage.clear()
   window.open('/', '_self');
 }}>

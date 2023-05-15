@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'My Hebrew Font';
+    src: url('../fonts/Gveret\ Levin\ Alef\ Alef\ Alef.ttf');
+  }
+  
+  .take-me {
+    font-family: 'My Hebrew Font';
+    color: rgb(179, 0, 0);
+    font-size: 1.8rem;
+  }
+  
+  .ride-with-me {
+    font-family: 'My Hebrew Font';
+    color: rgb(0, 80, 158);
+    font-size: 1.8rem;
+  }

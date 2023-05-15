@@ -8,4 +8,10 @@ export const REFRESH = `${HOSTNAME}auth/token/refresh/`
 export const GET_USER = `${HOSTNAME}auth/users/`
 
 export const RIDE =`${HOSTNAME}ride/`
+export const SEND_FRIEND_REQUEST = `${HOSTNAME}friends/request/`
+export const FRIEND_REQUESTS = `${HOSTNAME}friends/request_list/`
+export const FRIEND_REQUEST_CONFIRM = `${HOSTNAME}friends/confirm/`
+export const FRIEND_REQUEST_CANCEL = `${HOSTNAME}friends/cancel/`
+export const MUYUAL_FRIENDS = `${HOSTNAME}friends/mutual_friends/?user2=`
+
 

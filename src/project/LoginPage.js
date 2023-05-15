@@ -3,6 +3,10 @@ import * as React from 'react';
 import axios from "axios";
 import { useState } from "react";
 import { LOGIN, SINGUP } from './urls';
+import { GoogleLogin } from '@react-oauth/google';
+
+
+
 
 export default function LoginPage() {
     const [username, setUsername] = useState("");
@@ -117,21 +121,40 @@ const [picture_url, setPictureUrl] = useState("");
             setErrorText(error.message)}
             
     });
+    // const login = useGoogleLogin({
+    //   onSuccess: tokenResponse => console.log(tokenResponse),
+    // });
     }
 
     return (
+      
         <React.Fragment>
+        
             <CssBaseline />
   <Box sx={{ bgcolor: '#262626', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Box sx={{ bgcolor: '#FFFFFF', p: 4, borderRadius: 4, boxShadow: '0px 5px 20px rgba(0, 0, 0, 0.2)' }}>
-      <Typography variant="h4" component="h1" align="center" gutterBottom sx={{ color: '#262626', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 4 }}>
-        RideWave
+      <Typography variant="h4" component="h1" align="center" gutterBottom sx={{ color: '#262626', fontWeight: 'bold', letterSpacing: 4 }}>
+        RideWithMe
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
         <Button variant="contained" color="primary" sx={{ mb: 2, backgroundColor: '#FF7F50', color: '#FFFFFF', fontWeight: 'bold', boxShadow: 'none' }}onClick={(event)=>{setLogIn("block")
                          setRegister("none")}}>
           Get Started
         </Button>
+        <GoogleLogin
+  onSuccess={credentialResponse => {
+    console.log(credentialResponse);
+  }}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+/>
+
+
+{/* <MyCustomButt onClick={() => login()}>
+  Sign in with Google 🚀{' '}
+</MyCustomButton>; */}
+
         <Typography variant="caption" align="center" sx={{ color: '#707070' }}>
           Already have an account?
           <Button color="primary" sx={{ textTransform: 'none', fontWeight: 'bold', ml: 1 }} onClick={(event)=>{setRegister("block") 

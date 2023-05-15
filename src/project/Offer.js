@@ -8,9 +8,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';
-import {  Grid, TextField, InputAdornment, Typography } from '@mui/material';
+import {  Grid, TextField, InputAdornment, Typography, Alert,Autocomplete, Avatar } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
+import city from "./cities.json"
+import logo from "./imeges/location_logo.png"
+import "./Offer.css"
+
+
 
 
 
@@ -27,9 +32,18 @@ export default function Offer(props) {
   const [price, setPrice] = useState(0);
   const [seats, setSeats] = useState(1);
   const [details, setDetails] = useState("");
+  const [loading,setLoding]= useState(false)
+  const [error,setError] = useState("none")
+  const options = city.map((item) => item.name);
+
+ 
+
+  
+
 
   const  submitNewRide = (event)=>{
     event.preventDefault();
+    setLoding(true)
   const datetime = date.format('YYYY-MM-DD') + 'T' + time.format('HH:mm:ss') + 'Z';
 
   const requestBody= {  
@@ -46,8 +60,13 @@ const token = localStorage.getItem('access')
 axios.post(RIDE, requestBody, {headers: {Authorization: `Bearer ${token}`}})
   .then((res) => {
     console.log("File Upload success");
+    window.location.href = "/"
+
+   
   })
-  .catch((err) =>{ console.log(err)
+  .catch((error) =>{ console.log(error.message)
+    setError("block")
+    setLoding(false)
 
   })}
 
@@ -57,42 +76,85 @@ return (
     <Container maxWidth="sm">
       <Box
         sx={{
-          bgcolor: "rgba(97, 31, 97, 0.8)",
+          backgroundColor:"rgb(255, 255, 255)",
+          border: `1px solid rgb(0, 80, 158) `,
           minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           padding: 4,
+          
         }}
       >
-        <Typography variant="h4" align="center" gutterBottom>
+        <Avatar
+  alt="Remy Sharp"
+
+  src={logo}
+  sx={{ width: 100,border: `2px solid rgb(0, 80, 158) `, height: 100 }}/>
+        <h4 className='new_ride' align="center" sx={{marginBottom: '90px'}} gutterBottom>
           צור נסיעה חדשה
-        </Typography>
+        </h4>
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12} sm={6}>
-              <TextField
-                id="to_location"
-                label="יעד"
-                variant="standard"
-                fullWidth
-                value={toLocation}
-                onChange={(event) => {
-                  setToLocation(event.target.value);
-                }}
-              />
+            <Autocomplete
+  id="controllable-states-demo"
+  options={options}
+  getOptionLabel={(option) => option}
+  onChange={(event, newValue) => {
+    setToLocation(newValue);
+  }}
+  renderOption={(props, option) => (
+    <li {...props} style={{direction: "rtl"}}>
+      {option}
+    </li>
+  )}
+  renderInput={(params) => (
+    <TextField
+      {...params}
+      InputProps={{
+        ...params.InputProps,
+        style: {direction: "rtl"}
+      }}
+      InputLabelProps={{
+        style: {direction: "rtl"}
+      }}
+      label="יעד"
+      variant="standard"
+      sx={{ "& label": { right: 20 } }}
+    />
+  )}
+/>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                id="from_location"
-                label="מוצא"
-                variant="standard"
-                fullWidth
-                value={fromLocation}
-                onChange={(event) => {
-                  setFromLocation(event.target.value);
-                }}
-              />
+            <Autocomplete
+  id="controllable-states-demo"
+  options={options}
+  getOptionLabel={(option) => option}
+  onChange={(event, newValue) => {
+    setFromLocation(newValue);
+  }}
+  renderOption={(props, option) => (
+    <li {...props} style={{direction: "rtl"}}>
+      {option}
+    </li>
+  )}
+  renderInput={(params) => (
+    <TextField
+      {...params}
+      InputProps={{
+        ...params.InputProps,
+        style: {direction: "rtl"}
+      }}
+      InputLabelProps={{
+        style: {direction: "rtl"}
+      }}
+      label="מוצא"
+      variant="standard"
+      sx={{ "& label": { right: 20 } }}
+    />
+  )}
+/>
             </Grid>
             <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -130,7 +192,7 @@ return (
                     inputProps: {
                       pattern: "[0-9]*",
                       inputMode: "numeric",
-                      style: { textAlign: "left" },
+                      style: { textAlign: "right" },
                     },
                     startAdornment: (
                       <InputAdornment position="start">₪</InputAdornment>
@@ -155,7 +217,8 @@ return (
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField id="details" label="פרטים" variant="filled" multiline maxRows={4} fullWidth
+              <TextField id="details"  label="פרטים" variant="filled" multiline maxRows={4} fullWidth dir="rtl"
+          sx={{ "& label": { right: 0 } }}
               onChange={(event) => {
                 setDetails(event.target.value);
               }}/>
@@ -164,30 +227,28 @@ return (
             <LoadingButton
   onClick={submitNewRide}
   endIcon={<SendIcon />}
-  loading={false}
+  loading={loading}
   loadingPosition="end"
-  variant="contained"
   sx={{
-    backgroundColor: "#ffdb4d",
-    // "&:hover": {
-    //   backgroundColor: "#ffff33", // Change the color on hover if needed
-    // }
+    backgroundColor: '#f2f2f2',
+    color: 'rgb(0, 80, 158)',
+    border: '2px solid rgb(0, 80, 158)s',
+    width: "120px",
+    '&:hover': {
+      backgroundColor: 'rgb(0, 80, 158)',
+      color: '#fff'
+    }
   }}
 >
   <span>צור נסיעה</span>
 </LoadingButton>
 
-              {/* <Button
-                color="secondary"
-                size="large"
-                variant="contained"
-                sx={{ width: '100%' }}
-                onClick={submitNewRide}
-              >
-                צור נסיעה
-              </Button> */}
             </Grid>
+            <Alert style={{ display: error }} variant="filled" severity="error">משהו השתבש נסה שוב</Alert>
+            
           </Grid>
+         
+
         </Box>
       </Container>
     </>
