@@ -1,5 +1,4 @@
 import './App.css';
-import LoginPage from './project/LoginPage';
 import Layout from './project/Layout';
 import { Route, Routes } from 'react-router-dom';
 import { ME, REFRESH } from './project/urls';
@@ -7,14 +6,17 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProfilePage from './project/Profile';
 import Home from './project/home/Home.js';
-import Offer from './project/Offer';
-import Asks from './project/Asks';
 import RideDetails from './project/RideDetails';
 import Test from './project/test';
-import FriendsPage from './project/FriendsPage';
+import LoginPage from './project/logInPage/LoginPage';
+import MyRide from './project/MyRide';
+import Asks from './project/newRide/Asks';
+import Offer from './project/newRide/Offer';
+import FriendsPage from './project/friendPage/FriendsPage';
 
 function App() {
   const [userData, setUserData] = useState(null)
+  console.log(userData);
 
   function sendRequest(url) {
     const token = localStorage.getItem('access')
@@ -56,16 +58,18 @@ function App() {
     <Routes>
       {userData ? (
        <Route path="/" element={<Layout user={userData} />}>
-        <Route index element={<Home/>}
+        <Route index element={<Home me={userData}/>}
         />
          <Route 
            path="/profile" element={<ProfilePage user={userData} onImgUpload={() => sendRequest(ME)}/>}/>
            <Route path='/offer' element={<Offer token={() => sendRequest(ME)}/>}/>
            <Route path='/friends' element={<FriendsPage/>}/>
+           <Route path='/myRide' element={<MyRide me={userData}/>}/>
+
 
 
            <Route path='/asks' element={<Asks/>}/>
-           <Route path='/ride/:id' element={<RideDetails />} />
+           <Route path='/ride/:id' element={<RideDetails me={userData} />} />
 
        </Route>
       ) : (

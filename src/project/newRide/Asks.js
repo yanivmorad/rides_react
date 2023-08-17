@@ -8,38 +8,38 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';
-import {  Grid, TextField, InputAdornment, Typography, Alert,Autocomplete, Avatar } from '@mui/material';
+import {  Grid, TextField, InputAdornment, Typography, Alert, Autocomplete, Avatar } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
-import city from "./cities.json"
-import logo from "./imeges/location_logo.png"
-import "./Offer.css"
+import  {ThemeProvider, createTheme, useTheme}  from '@mui/material/styles';
+import city from "../cities.json"
+import "./newRide.css"
 
 
-
-
-
-import { TypographyRoot } from '@mui/material/Typography/Typography';
 import axios from 'axios';
-import { RIDE } from './urls';
+import { RIDE } from '../urls';
+import logo from '../imeges/Asks.png'
+import { unstable_HistoryRouter } from 'react-router-dom';
 
+export default function Asks(props) {
 
-export default function Offer(props) {
   const [toLocation, setToLocation] = useState("");
   const [fromLocation, setFromLocation] = useState("");
   const [date, setDate] = useState(dayjs());
   const [time, setTime] = useState(dayjs());
-  const [price, setPrice] = useState(0);
   const [seats, setSeats] = useState(1);
   const [details, setDetails] = useState("");
   const [loading,setLoding]= useState(false)
   const [error,setError] = useState("none")
   const options = city.map((item) => item.name);
-
- 
-
   
-
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: 'rgb(179, 0, 0)', // Replace with your desired color
+      },
+    },
+  });
 
   const  submitNewRide = (event)=>{
     event.preventDefault();
@@ -50,8 +50,7 @@ export default function Offer(props) {
     "from_location": fromLocation,
     "to_location": toLocation,
     "datetime": datetime,
-    "is_request": false,
-    "price": price,
+    "is_request": true,
     "details":details,
     "seat":seats,
   }
@@ -62,41 +61,43 @@ axios.post(RIDE, requestBody, {headers: {Authorization: `Bearer ${token}`}})
     console.log("File Upload success");
     window.location.href = "/"
 
-   
+
   })
   .catch((error) =>{ console.log(error.message)
     setError("block")
     setLoding(false)
+    
 
   })}
 
 return (
     <>
+     <ThemeProvider theme={theme}>
+
     <CssBaseline />
     <Container maxWidth="sm">
       <Box
         sx={{
+          minHeight: '100vh',
           backgroundColor:"rgb(255, 255, 255)",
-          border: `1px solid rgb(0, 80, 158) `,
+          border: `1px solid rgb(179, 0, 0)`,
           minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center",
           padding: 4,
-          
         }}
       >
-        <Avatar
+       <Avatar
   alt="Remy Sharp"
 
   src={logo}
-  sx={{ width: 100,border: `2px solid rgb(0, 80, 158) `, height: 100 }}/>
-        <h4 className='new_ride' align="center" sx={{marginBottom: '90px'}} gutterBottom>
-          צור נסיעה חדשה
-        </h4>
+  sx={{ width: 100,border: `1px solid rgb(179, 0, 0) `, height: 100 }}/>
+         <h5 className='asked'  >
+          בקש טרמפ
+        </h5>
           <Grid container spacing={4} justifyContent="center">
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6}>
             <Autocomplete
   id="controllable-states-demo"
   options={options}
@@ -110,6 +111,7 @@ return (
     </li>
   )}
   renderInput={(params) => (
+
     <TextField
       {...params}
       InputProps={{
@@ -121,12 +123,15 @@ return (
       }}
       label="יעד"
       variant="standard"
+      color="primary"
+
       sx={{ "& label": { right: 20 } }}
     />
+
   )}
 />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6}>
             <Autocomplete
   id="controllable-states-demo"
   options={options}
@@ -140,6 +145,7 @@ return (
     </li>
   )}
   renderInput={(params) => (
+    <ThemeProvider theme={theme}>
     <TextField
       {...params}
       InputProps={{
@@ -152,58 +158,53 @@ return (
       label="מוצא"
       variant="standard"
       sx={{ "& label": { right: 20 } }}
+      color="primary"
+
     />
+    </ThemeProvider>
   )}
 />
             </Grid>
             <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <ThemeProvider theme={theme}>
+
                 <DesktopDatePicker
+                  color="primary"
                   label="תאריך"
+                  format="DD.MM.YYYY"
                   value={date}
                   onChange={(newValue) => {
                     setDate(newValue);
+                  
                   }}
+                  disablePast
                 />
+              
+                </ThemeProvider>
+                <ThemeProvider theme={theme}>
+
                 <DesktopTimePicker
+                      color="primary"
+
                   label="שעה משוערת"
                   ampm={false}
                   value={time}
                   onChange={(newValue) => {
                     setTime(newValue);
                   }}
-                />
+                /></ThemeProvider>
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={12} sm={6} container spacing={2} alignItems="center">
+           
               <Grid item xs={6}>
+              <ThemeProvider theme={theme}>
+
                 <TextField
-                  id="price"
-                  label="מחיר"
-                  variant="standard"
-                  fullWidth
-                  type="number"
-                  defaultValue={0}
-                  value={price}
-                  onChange={(event) => {
-                    setPrice(event.target.value);
-                  }}
-                  InputProps={{
-                    inputProps: {
-                      pattern: "[0-9]*",
-                      inputMode: "numeric",
-                      style: { textAlign: "right" },
-                    },
-                    startAdornment: (
-                      <InputAdornment position="start">₪</InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
+                      color="primary"
+
                   id="seats"
-                  label="מקומות פנויים"
+                  label="מקומות "
                   variant="standard"
                   fullWidth
                   type="number"
@@ -213,44 +214,57 @@ return (
                     setSeats(event.target.value);
                   }}
                   InputProps={{ inputProps: { min: 1, max: 10 } }}
-                />
+                /></ThemeProvider>
               </Grid>
-            </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField id="details"  label="פרטים" variant="filled" multiline maxRows={4} fullWidth dir="rtl"
-          sx={{ "& label": { right: 0 } }}
+            <ThemeProvider theme={theme}>
+
+            <TextField
+              dir="rtl"
+              sx={{
+                "& label": { right: 20 }    }}
+             
+              id="details"
+              label="פרטים"
+              variant="filled"
+              multiline
+              maxRows={4}
+              fullWidth
+              color="primary"
               onChange={(event) => {
                 setDetails(event.target.value);
-              }}/>
+              }}
+            /></ThemeProvider>
+
             </Grid>
             <Grid item xs={12} sm={6} container justifyContent="center" alignItems="center">
             <LoadingButton
-  onClick={submitNewRide}
-  endIcon={<SendIcon />}
-  loading={loading}
-  loadingPosition="end"
-  sx={{
-    backgroundColor: '#f2f2f2',
-    color: 'rgb(0, 80, 158)',
-    border: '2px solid rgb(0, 80, 158)s',
-    width: "120px",
-    '&:hover': {
-      backgroundColor: 'rgb(0, 80, 158)',
-      color: '#fff'
-    }
-  }}
->
-  <span>צור נסיעה</span>
-</LoadingButton>
-
+      onClick={submitNewRide}
+      endIcon={<SendIcon />}
+      loading={loading}
+      loadingPosition="end"
+      sx={{
+        backgroundColor: '#f2f2f2',
+        // color: "rgb(244, 67, 54)",
+        border: `2px solid `,
+        width: "120px",
+        '&:hover': {
+          backgroundColor:"rgb(179, 0, 0)",
+          color: '#fff'
+        }
+      }}
+    >
+      <span>בקש </span>
+    </LoadingButton>
+            
             </Grid>
             <Alert style={{ display: error }} variant="filled" severity="error">משהו השתבש נסה שוב</Alert>
-            
-          </Grid>
-         
 
+          </Grid>
         </Box>
       </Container>
+      </ThemeProvider>
+
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
-import MutualFriends from "./MutualFriends";
+import MutualFriends from "../MutualFriends";
 
 export default function FriendRequestDialog({  open, onClose, friendRequest, userData }) {
     
@@ -21,14 +21,14 @@ export default function FriendRequestDialog({  open, onClose, friendRequest, use
             {userData.first_name + " " + userData.last_name}
           </Typography>
         </Box>
-        <Typography sx={{ fontSize: '1.2rem', mb: 1, textAlign: 'right' }}>
+        <Typography sx={{ fontSize: '1.1rem', mb: 1, textAlign: 'right' }}>
           <strong>טלפון:</strong> {userData.phone_number}
         </Typography>
-        <Typography sx={{ fontSize: '1.2rem', textAlign: 'right' }}>
+        <Typography sx={{ fontSize: '1.1rem', mb: 1,}} dir="rtl">
           <strong>כתובת:</strong> {userData.address}
         </Typography>
-        <Box sx={{ mt: 3, textAlign: 'center' }}>
-          <Typography variant="" sx={{ textAlign: 'center' }}>
+        <Box sx={{ mt: 3, textAlign: 'center', }}>
+        <Typography variant="" sx={{mb: 2, textAlign: 'center',  }}>
             חברים משותפים
           </Typography>
           <MutualFriends userID={userData.id} />

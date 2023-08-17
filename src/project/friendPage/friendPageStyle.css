@@ -1,0 +1,17 @@
+.searchUserTitel{
+    font-family: 'My Hebrew Font';
+    color: rgb(0, 80, 158);
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    text-align: center;
+
+    
+  }
+  .friendReqestTitel {
+    font-family: 'My Hebrew Font';
+    color: rgb(179, 0, 0);
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    text-align: center;
+
+  }

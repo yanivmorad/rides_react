@@ -1,0 +1,93 @@
+@font-face {
+    font-family: 'My Hebrew Font';
+    src: url('./fonts/Gveret\ Levin\ Alef\ Alef\ Alef.ttf');
+  }
+@font-face {
+    font-family: 'My card Font';
+    src: url('./fonts/VarelaRound-Regular.ttf');
+  }
+  
+  .reqest {
+    font-family: 'My Hebrew Font';
+    color: rgb(179, 0, 0);
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    text-align: center;
+
+  }
+  
+  .driver{
+    font-family: 'My Hebrew Font';
+    color: rgb(0, 80, 158);
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .rideDetails{
+      font-family: 'My card Font';
+      direction: rtl;
+      font-size: 1.1rem;
+    
+    }  
+
+  .userDetails{
+      font-family: 'My card Font';
+      direction: rtl;
+      font-size: 1.1rem;
+    
+    }  
+
+    
+  
+
+  .cardToLocation {
+    font-family: 'My card Font';
+    direction: rtl;
+    font-size: 1.5rem;
+    color: #000000;
+    margin-top: 0.2rem;
+    margin-bottom: 0rem;
+  }
+  
+  @media (max-width: 600px) {
+    .cardToLocation {
+      font-size: 1.3rem;
+      margin-top: 0rem;
+    }
+  }
+  
+  .cardFromLocation {
+    font-family: 'My card Font';
+    direction: rtl;
+    font-size: 1.5rem;
+    color: #343333;
+    margin-top: 0.2rem;
+    margin-bottom: 0rem;
+    margin-right: 0.3rem;
+  }
+  
+  @media (max-width: 600px) {
+    .cardFromLocation {
+      font-size: 1.3rem;
+      margin-right: 0;
+    }
+  }
+  
+  .cardName {
+    font-family: 'My card Font';
+    direction: rtl;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    font-size: 1.2rem;
+    margin-right: 6px;
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .cardName {
+      font-size: 1rem;
+      margin-right: 0;
+      margin-top: 6px;
+    }
+  }

@@ -1,6 +1,6 @@
 import {List,ListItem,ListItemAvatar,ListItemText,ListItemButton, Chip,Avatar} from "@mui/material";
 import axios from "axios";
-import { FRIEND_REQUEST_CANCEL, FRIEND_REQUEST_CONFIRM, GET_USER } from "./urls";
+import { FRIEND_REQUEST_CANCEL, FRIEND_REQUEST_CONFIRM, GET_USER } from "../urls";
 import { useEffect, useState } from "react";
 import FriendRequestDialog from "./FriendsPage";
 
@@ -67,8 +67,8 @@ export default function FriendRequestListItem({ friendRequest, onClick,onRefresh
               src={userData.picture_url}
             />
           </ListItemAvatar>
-          <ListItemText primary={userData.first_name+" "+userData.last_name} />
-          <Chip label="אשר" variant="outlined" color="primary" size="small" sx={{ marginRight: 1 }}onClick={confirmChip}/>
+          <ListItemText primary={userData.first_name+" "+userData.last_name}sx={{ textAlign: 'right' }} />
+          <Chip label="אשר" variant="outlined" color="primary" size="small" sx={{ marginLeft: 1 }}onClick={confirmChip}/>
           <Chip label="דחה" variant="outlined" color="error" size="small" onClick={cancelChip} />
 
         </ListItemButton>

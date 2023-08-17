@@ -1,12 +1,13 @@
 import axios from "axios";
-import { FRIEND_REQUESTS, GET_USER } from "./urls";
+import { FRIEND_REQUESTS, GET_USER } from "../urls";
 import { useEffect } from "react";
 import * as React from "react";
-import {Box, List, Typography} from "@mui/material";
+import {Alert, Box, List, TextField, Typography} from "@mui/material";
 import { useState } from "react";
 import FriendRequestListItem from "./FriendRequestListItem";
 import FriendRequestDialog from "./FriendRequestDialog";
-
+import "./friendPageStyle.css"
+import SearchUsers from "./SearchUsers";
 
 
 export default function FriendsPage() {
@@ -51,8 +52,19 @@ export default function FriendsPage() {
 };
   
     return (
-        
-          <Box
+        <>   
+         <Box
+            sx={{
+              
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column"
+            }}
+          >
+
+<SearchUsers/>
+
+         <Box
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -60,21 +72,25 @@ export default function FriendsPage() {
               flexDirection: "column"
             }}
           >
-            <Typography variant="h5" component="h1" sx={{ mt: 2, mb: 3 }}>
+           <p className="friendReqestTitel">
               בקשות חברות
-            </Typography>
-            <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-              {data.map((friendRequest) => {
-                return (
-                  <FriendRequestListItem
-                    key={friendRequest.id}
-                    friendRequest={friendRequest}
-                    onClick={() => handleListItemClick(friendRequest)}
-                    onRefresh={handleRefresh}
-                  />
-                );
-              })}
-            </List>
+            </p>            
+              {data.length === 0 ? (
+                <Alert variant="outlined" severity="warning">
+                  אין בקשות חברות
+                </Alert>
+) : (
+  <List dense sx={{ width: "100%", maxWidth: 360,direction: 'rtl', bgcolor: "background.paper" }}>
+    {data.map((friendRequest) => (
+      <FriendRequestListItem
+        key={friendRequest.id}
+        friendRequest={friendRequest}
+        onClick={() => handleListItemClick(friendRequest)}
+        onRefresh={handleRefresh}
+      />
+    ))}
+  </List>
+)}
             <FriendRequestDialog
               open={dialogOpen}
               onClose={() => setDialogOpen(false)}
@@ -82,6 +98,13 @@ export default function FriendsPage() {
               userData={userData}
             />
           </Box>
+
+         
+
+          </Box>
+
+          </>
+
         );
         
     }

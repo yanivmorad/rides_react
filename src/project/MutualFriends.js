@@ -1,6 +1,6 @@
 import axios from "axios"
 import { MUYUAL_FRIENDS } from "./urls"
-import { Avatar, AvatarGroup, Box, Typography } from "@mui/material"
+import { Alert, Avatar, AvatarGroup, Box, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 
 
@@ -31,7 +31,8 @@ return(<>
   
   ))
 ) : (
-  <p>אין חברים משותפים</p>
+  <Alert variant="outlined" severity="warning">
+  אין חברים משותפים</Alert>
 )}
 
 

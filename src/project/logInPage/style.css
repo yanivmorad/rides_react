@@ -1,0 +1,29 @@
+
+
+
+.profile-picture-label {
+    display: inline-block;
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.3s;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-picture-label:hover {
+    background-color: #f2f2f2;
+    color: #000;
+    border-color: #999;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .profile-picture-label:active {
+    background-color: #eee;
+    border-color: #777;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+  }
