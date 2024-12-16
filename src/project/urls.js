@@ -1,5 +1,5 @@
-// const HOSTNAME = 'http://127.0.0.1:8000/api/'
-const HOSTNAME = 'http://ec2-16-16-198-188.eu-north-1.compute.amazonaws.com/api/'
+const HOSTNAME = 'http://127.0.0.1:8000/api/'
+// const HOSTNAME = 'http://ec2-16-16-198-188.eu-north-1.compute.amazonaws.com/api/'
 
 export const LOGIN = `${HOSTNAME}token/`
 export const SINGUP = `${HOSTNAME}auth/signup/`
